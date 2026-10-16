@@ -18,6 +18,11 @@ hidden1_size = 128
 hidden2_size = 64
 output_size = 10
 
+print("Hidden layer 1:", hidden1_size)
+print("Hidden layer 2:", hidden2_size)
+
+
+
 # Initialize weights and biases
 W1 = np.random.randn(input_size, hidden1_size) * np.sqrt(2 / input_size)
 b1 = np.zeros((1, hidden1_size))
@@ -28,6 +33,9 @@ b2 = np.zeros((1, hidden2_size))
 W3 = np.random.randn(hidden2_size, output_size) * np.sqrt(2 / hidden2_size)
 b3 = np.zeros((1, output_size))
 
+print("W1 shape:", W1.shape)
+print("W2 shape:", W2.shape)
+print("W3 shape:", W3.shape)
 
 def relu(x):
     return np.maximum(0, x)
@@ -136,18 +144,27 @@ print("\nFirst 20 predictions:")
 print("Predicted:", predicted_digits[:20])
 print("Actual:   ", y_test[:20])
 
+print(
+    "Total incorrect predictions:",
+    np.sum(predicted_digits != y_test)
+)
 
 # Display one incorrectly classified test image, if any.
 wrong = np.where(predicted_digits != y_test)[0]
 
 if len(wrong) > 0:
-    index = wrong[0]
+    index = np.random.choice(wrong)
 
-    plt.imshow(X_test[index].reshape(28, 28), cmap="gray")
+    plt.imshow(
+        X_test[index].reshape(28, 28),
+        cmap="gray"
+    )
+
     plt.title(
         f"Predicted: {predicted_digits[index]}, "
         f"Actual: {y_test[index]}"
     )
+
     plt.axis("off")
     plt.show()
 else:
